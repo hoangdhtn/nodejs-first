@@ -1,6 +1,17 @@
-let getHomePage = (req, res) => {
+import { json } from 'body-parser';
+import db from '../models/index';
+
+let getHomePage =  async(req, res) => {
     // return res.send("Hello from controllers");
-    return res.render('homepage.ejs');
+    try {
+        let data = await db.User.findAll();
+       
+        return res.render('homepage.ejs', {
+            data: JSON.stringify(data)
+        });
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 module.exports = {
